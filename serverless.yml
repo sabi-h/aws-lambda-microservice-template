@@ -1,0 +1,59 @@
+---
+org: [ORG]
+app: [APP]
+service: [SERVICE]
+
+frameworkVersion: '2'
+useDotenv: true
+configValidationMode: error
+
+provider:
+  name: aws
+  runtime: python3.8
+  region: eu-west-1
+  stage: ${opt:stage, 'dev'}
+  lambdaHashingVersion: 20201221
+  deploymentBucket: [DEPLOYMENT_BUCKET]
+  timeout: 1
+  memorySize: 128
+  role: arn:aws:iam::940422634744:role/DataLambdasRole
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - "s3:*"
+          Resource: arn:aws:s3:::[BUCKET_NAME_PROD]/*
+        - Effect: "Allow"
+          Action:
+            - "s3:*"
+          Resource: arn:aws:s3:::[BUCKET_NAME_DEV]/*
+
+  environment:
+    STAGE: ${self:provider.stage}
+
+custom:
+  bucket: ${self:custom.configFile.${self:provider.stage}.OUTPUT_BUCKET}
+  configFile: ${file(config.json)}
+  pythonRequirements:
+    dockerizePip: non-linux
+
+functions:
+  transform:
+    handler: handler.lambda_transform
+    timeout: 10
+    memorySize: 512
+    events:
+      - s3:
+         bucket: ${self:custom.bucket}
+         event: s3:ObjectCreated:*
+         rules:
+          - prefix: ${self:custom.configFile.${self:provider.stage}.RAW_FOLDER}
+          - suffix: .json
+         existing: true
+    environment:
+      OUTPUT_BUCKET: ${self:custom.configFile.${self:provider.stage}.OUTPUT_BUCKET}
+      RAW_FOLDER: ${self:custom.configFile.${self:provider.stage}.PROCESS_FOLDER}
+
+plugins:
+  - serverless-python-requirements

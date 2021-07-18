@@ -1,0 +1,10 @@
+{
+    "dev": {
+        "KEY1": "VALUE1",
+        "KEY2": "VALUE2"
+    },
+    "prod": {
+        "KEY1": "VALUE1",
+        "KEY2": "VALUE2"
+    }
+}
