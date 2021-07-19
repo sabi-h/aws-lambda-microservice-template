@@ -2,20 +2,16 @@
 
 This README documents necessary steps to get this application up and running.
 
-
-### OnMusic Data Pipeline
-
-
 #### Copy/Sync data across s3 buckets or folders
-    prod-aws s3 sync s3://[SRC_BUCKET_NAME]/[SRC_KEY]/ s3://[SRC_BUCKET_NAME]/[SRC_KEY]/
+    aws s3 sync s3://[SRC_BUCKET_NAME]/[SRC_KEY]/ s3://[SRC_BUCKET_NAME]/[SRC_KEY]/
 
 
 #### Stream function logs into your terminal
-    prod-sls logs --function backfill --stage prod --tail
+    sls logs --function backfill --stage prod --tail
 
 
 #### Testing:
-    prod-python -m pytest utils_test.py
+    python -m pytest utils_test.py
 
 
 #### Linting:
@@ -27,8 +23,8 @@ This README documents necessary steps to get this application up and running.
 
 
 #### Invoke a function locally using dev and prod
-    dev-sls invoke local -f [FUNCTION_NAME] --path ./data/event.json
-    prod-sls invoke local -f [FUNCTION_NAME] --path ./data/event.json
+    sls invoke local -f [FUNCTION_NAME] --path ./data/event.json
+    sls invoke local -f [FUNCTION_NAME] --path ./data/event.json
 
 
 #### Invoke a function
