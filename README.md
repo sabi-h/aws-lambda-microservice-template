@@ -1,18 +1,10 @@
 ### Template Data Pipeline
 
 
-<<<<<<< HEAD
-#### Copy/Sync data across s3 buckets or folders
-    aws s3 sync s3://[SRC_BUCKET_NAME]/[SRC_KEY]/ s3://[SRC_BUCKET_NAME]/[SRC_KEY]/
-
-
 #### Stream function logs into your terminal
-    sls logs --function backfill --stage prod --tail
+    sls logs --function [FUNCTION_NAME] --stage prod --tail
 
 
-#### Testing:
-    python -m pytest utils_test.py
-=======
 #### Initiate a new project
     python template/initiate_new_project.py
 
@@ -33,7 +25,6 @@
 
 #### Testing:
     pytest . -v
->>>>>>> 53d0175 (new version, code cleanup, better structure)
 
 
 #### Linting:
@@ -45,13 +36,8 @@
 
 
 #### Invoke a function locally using dev and prod
-<<<<<<< HEAD
     sls invoke local -f [FUNCTION_NAME] --path ./data/event.json
     sls invoke local -f [FUNCTION_NAME] --path ./data/event.json
-=======
-    dev-sls invoke local -f main --path ./data/event.json
-    prod-sls invoke local -f main --path ./data/event.json
->>>>>>> 53d0175 (new version, code cleanup, better structure)
 
 
 #### Invoke a function
