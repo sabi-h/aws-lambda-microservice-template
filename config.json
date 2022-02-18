@@ -1,10 +1,10 @@
 {
     "dev": {
-        "KEY1": "VALUE1",
-        "KEY2": "VALUE2"
+        "REDSHIFT_DBNAME": "anw_staging",
+        "OUTPUT_BUCKET": "anw-redshift-dev",
     },
     "prod": {
-        "KEY1": "VALUE1",
-        "KEY2": "VALUE2"
+        "REDSHIFT_DBNAME": "db01",
+        "OUTPUT_BUCKET": "anw-redshift-dev"
     }
 }
